@@ -1,5 +1,6 @@
 const API_URL = "http://localhost:3000/api/users";
 
+
 // Inscription
 export const register = async (userData) => {
   try {
