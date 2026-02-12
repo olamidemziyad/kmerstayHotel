@@ -1,0 +1,36 @@
+{
+  "name": "react_js_projets",
+  "version": "1.0.0",
+  "description": "KmerStay Projet for Booking.",
+  "main": "app.js",
+  "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js"
+  },
+  "author": "Mouhamed Ziyad",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.10.0",
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^1.41.3",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "dotenv-json": "^1.0.0",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.0",
+    "multer-storage-cloudinary": "^4.0.0",
+    "mysql2": "^3.15.2",
+    "nodemailer": "^7.0.12",
+    "sequelize": "^6.37.7",
+    "streamifier": "^0.1.1",
+    "stripe": "^19.1.0",
+    "uuid": "^11.1.0"
+  },
+  "keywords": [],
+  "type": "commonjs",
+  "devDependencies": {
+    "nodemon": "^3.1.10",
+    "sequelize-cli": "^6.6.3"
+  }
+}
