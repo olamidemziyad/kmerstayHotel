@@ -17,7 +17,7 @@ const favoriteRoutes = require('./routes/favoriteRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const testRoutes = require("./routes/testRoutes");
 app.use(cors({
-  origin: "kmerstay-hotelmanagement.vercel.app", 
+  origin: "https://kmerstay-hotelmanagement.vercel.app", 
 }));
 // Middleware pour le webhook Stripe (AVANT express.json())
 app.use('/api/payments/webhook', express.raw({type: 'application/json'}));
