@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 // Importing Sequelize instance
 const sequelize = require('./configurations/database');   
+const PORT = process.env.PORT || 3000;
 
 // Importing Strip
 
@@ -52,7 +53,7 @@ sequelize.authenticate()
         .catch(error => console.error('Erreur de synchronisation des tables:', error));
 
 // Server Configuration
-app.listen(3000, () => {
-    console.log(`Le serveur est en cours sur le port 3000 depuis http://localhost:3000`);
-}); 
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Serveur en cours sur le port ${PORT}`);
+});
 
