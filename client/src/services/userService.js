@@ -21,7 +21,7 @@ export const getProfile = async () => {
   if (!token) throw new Error("Token non trouvé. Veuillez vous reconnecter.");
 
   // Si apiClient possède déjà l'en-tête Authorization, l'axios client l'enverra.
-  // Sinon, on passe explicitement l'en-tête pour être sûr.
+  // Sinon, on passe explicitement l'en-tête pour être sûr...
   const response = await apiClient.get("/users/me", {
     headers: {
       Authorization: `Bearer ${token}`,
