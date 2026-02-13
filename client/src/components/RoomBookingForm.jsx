@@ -19,7 +19,7 @@ import {
   Percent
 } from "lucide-react";
 import { createBooking, checkRoomAvailability } from "../services/bookingService";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "../context/AuthContext";
 import toast from "react-hot-toast";
 import LoginModal from "./ui/LoginModal";
 
@@ -39,7 +39,7 @@ export default function RoomBookingForm({
   const [showPriceBreakdown, setShowPriceBreakdown] = useState(true);
   
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   // Calcul du nombre de nuits
   const nights = useMemo(() => {
@@ -146,7 +146,7 @@ export default function RoomBookingForm({
     setError("");
 
     // Vérifier l'authentification
-    if (!isLoggedIn) {
+    if (!isAuthenticated) {
       setShowLoginModal(true);
       return;
     }
@@ -245,7 +245,7 @@ export default function RoomBookingForm({
           )}
 
           {/* INFORMATION UTILISATEUR NON CONNECTÉ */}
-          {!isLoggedIn && (
+          {!isAuthenticated && (
             <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 border-2 border-blue-200 dark:border-blue-800 rounded-xl p-4">
               <div className="flex items-start gap-3">
                 <div className="bg-blue-100 dark:bg-blue-900/40 p-2 rounded-full">
@@ -392,7 +392,7 @@ export default function RoomBookingForm({
               type="submit"
               disabled={bookingMutation.isPending || isCheckingAvailability}
               className={`group w-full relative overflow-hidden rounded-xl py-4 px-6 font-bold text-lg transition-all duration-300 shadow-lg hover:shadow-2xl disabled:opacity-70 disabled:cursor-not-allowed ${
-                isLoggedIn 
+                isAuthenticated 
                   ? "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white" 
                   : "bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300"
               }`}
@@ -408,7 +408,7 @@ export default function RoomBookingForm({
                     <Loader2 className="animate-spin w-5 h-5" />
                     Création de la réservation...
                   </>
-                ) : isLoggedIn ? (
+                ) : isAuthenticated ? (
                   <>
                     <CreditCard className="w-5 h-5 group-hover:scale-110 transition-transform" />
                     Confirmer & Payer
@@ -423,7 +423,7 @@ export default function RoomBookingForm({
               </span>
               
               {/* Effet de brillance */}
-              {isLoggedIn && (
+              {isAuthenticated && (
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
               )}
             </button>

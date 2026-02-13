@@ -12,6 +12,7 @@ const AuthContext = createContext(null);
 export const AuthProvider = ({ children }) => {
   // Compatibilité entre authService et userService
   const initialToken =
+    localStorage.getItem("token") ||
     sessionStorage.getItem("token") ||
     sessionStorage.getItem("authToken") ||
     null;
@@ -45,6 +46,7 @@ export const AuthProvider = ({ children }) => {
         console.error("❌ AuthProvider: Échec récupération profil", err);
 
         // Token invalide ou expiré → nettoyage complet
+        localStorage.removeItem("token");
         sessionStorage.removeItem("token");
         sessionStorage.removeItem("authToken");
         delete apiClient.defaults.headers.common["Authorization"];
@@ -74,12 +76,15 @@ export const AuthProvider = ({ children }) => {
 
       // Le token est stocké dans sessionStorage par loginUser()
       const newToken =
+        localStorage.getItem("token") ||
         sessionStorage.getItem("token") ||
         sessionStorage.getItem("authToken") ||
         data?.token ||
         null;
 
       if (newToken) {
+        localStorage.setItem("token", newToken);
+        sessionStorage.setItem("token", newToken);
         setToken(newToken);
         apiClient.defaults.headers.common[
           "Authorization"
@@ -100,6 +105,7 @@ export const AuthProvider = ({ children }) => {
 
   // 🚪 Déconnexion utilisateur
   const logout = () => {
+    localStorage.removeItem("token");
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("authToken");
     delete apiClient.defaults.headers.common["Authorization"];

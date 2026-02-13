@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
-import { loginUser } from "../services/userService";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 import { Mail, Lock, Eye, EyeOff, Loader2, CheckCircle, AlertCircle, ArrowRight, Sparkles, Shield, Zap, Users } from "lucide-react";
 
 function Login() {
   const navigate = useNavigate();
+  const { login: loginWithContext } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -13,14 +14,13 @@ function Login() {
 
   const {
     mutate: login,
-    isLoading,
+    isPending,
     isError,
     error,
     isSuccess,
   } = useMutation({
-    mutationFn: loginUser,
-    onSuccess: (data) => {
-      localStorage.setItem("token", data.token);
+    mutationFn: loginWithContext,
+    onSuccess: () => {
       setTimeout(() => navigate("/"), 1000);
     },
   });
@@ -278,15 +278,15 @@ function Login() {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  disabled={isLoading || isSuccess}
+                  disabled={isPending || isSuccess}
                   className={`relative w-full py-4 px-6 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center gap-2 shadow-2xl overflow-hidden group ${
-                    isLoading || isSuccess
+                    isPending || isSuccess
                       ? 'bg-gray-600/50 cursor-not-allowed'
                       : 'bg-gradient-to-r from-pink-500 via-violet-500 to-indigo-500 hover:shadow-pink-500/50'
                   } text-white focus:outline-none focus:ring-2 focus:ring-violet-400 focus:ring-offset-2 focus:ring-offset-slate-900`}
                 >
                   <span className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-violet-500 to-pink-500 translate-x-full group-hover:translate-x-0 transition-transform duration-500"></span>
-                  {isLoading ? (
+                  {isPending ? (
                     <>
                       <Loader2 className="relative animate-spin w-5 h-5" />
                       <span className="relative">Connexion en cours...</span>

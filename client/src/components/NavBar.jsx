@@ -55,7 +55,9 @@ export default function Navbar() {
   });
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
     sessionStorage.removeItem("token");
+    sessionStorage.removeItem("authToken");
     navigate("/login");
     setIsMobileMenuOpen(false);
   };
