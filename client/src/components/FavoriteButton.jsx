@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import useFavorites from '../hooks/useFavorite';
+import useFavorites from '../hooks/useFavorites';
 
 const FavoriteButton = ({ hotelId, size = 'medium', showText = false }) => {
   const { isAuthenticated, isFavorite, toggleFavorite, loading } = useFavorites();

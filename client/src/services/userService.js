@@ -16,9 +16,12 @@ export const registerUser = async (userData) => {
 
 // Récupération du profil utilisateur connecté
 export const getProfile = async () => {
-  const token = localStorage.getItem("token");
+  // Support both sessionStorage and localStorage for backward compatibility
+  const token = sessionStorage.getItem("token") || localStorage.getItem("token");
   if (!token) throw new Error("Token non trouvé. Veuillez vous reconnecter.");
 
+  // Si apiClient possède déjà l'en-tête Authorization, l'axios client l'enverra.
+  // Sinon, on passe explicitement l'en-tête pour être sûr.
   const response = await apiClient.get("/users/me", {
     headers: {
       Authorization: `Bearer ${token}`,
