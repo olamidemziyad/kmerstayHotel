@@ -16,7 +16,7 @@ export const registerUser = async (userData) => {
 
 // Récupération du profil utilisateur connecté
 export const getProfile = async () => {
-  const token = sessionStorage.getItem("token");
+  const token = localStorage.getItem("token");
   if (!token) throw new Error("Token non trouvé. Veuillez vous reconnecter.");
 
   const response = await apiClient.get("/users/me", {
@@ -62,7 +62,7 @@ export const deleteUser = async (id) => {
 export const getAllUsers = async () => {
   try {
     const { data } = await apiClient.get("/users");
-    return data.data || [];  // ✅ renvoie toujours un tableau
+    return data.data || [];  
   } catch (error) {
     throw new Error(error.response?.data?.message || "Erreur lors du chargement des utilisateurs");
   }

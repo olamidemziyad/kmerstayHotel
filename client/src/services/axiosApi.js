@@ -8,9 +8,9 @@ const apiClient = axios.create({
   },
 });
 
-/* ===============================/
-   INTERCEPTOR AUTH
-================================ *///
+
+   //INTERCEPTOR AUTH
+
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token"); // localStorage recommandé

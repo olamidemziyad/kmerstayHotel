@@ -1,4 +1,3 @@
-// src/components/navbars/HotelPageNavBar.jsx 
 import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,7 +7,7 @@ import { User, Menu, X, BedDouble } from "lucide-react";
 // Helper pour les initiales
 const getInitials = (name = "") => name.split(' ').map(n => n[0]).slice(0, 2).join('').toUpperCase();
 
-export default function HotelPageNavbar() { // Renommé pour plus de clarté
+export default function HotelPageNavbar() { 
     const navigate = useNavigate();
     const { id: hotelId } = useParams();
 
